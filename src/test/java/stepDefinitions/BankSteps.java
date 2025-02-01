@@ -41,7 +41,7 @@ public class BankSteps {
         bankPage.add_money(amount);
     }
 
-    @Then("Hesap bakiyesi kontrol edilir {string}")
+    @Then("Hesap bakiyesi {string} artırğı doğrulanır")
     public void check_account_money(String amount) {
         int int_amount = Integer.parseInt(amount);
         bankPage.check_add_amount(this.account_amount,int_amount);
@@ -51,5 +51,29 @@ public class BankSteps {
     public void card_payment_area_control() {
         bankPage.card_area_validation_control();
     }
+
+
+    @And("Para transferi {string} hesabı için {string} tutarında yapılır")
+    public void transfer_money(String account_name, String amount) {
+        bankPage.transfer_money("",account_name,amount);
+    }
+
+    @When("Son işlemlerde para transferi {string} hesabı için {string} tutarında doğrulanır")
+    public void last_transaction_check(String receiver_account, String amount) {
+        String account_name = bankPage.get_account_name();
+        bankPage.check_last_transactions(account_name,receiver_account, amount);
+    }
+
+    @Then("Hesap bakiyesi {string} azaldığı doğrulanır")
+    public void account_money_decrease_check(String amount) {
+        int amount_int = Integer.parseInt(amount);
+        bankPage.check_degrease_amount(this.account_amount, amount_int);
+    }
+
+    @And("Mevcut hesap bakiyesi kaydedilir")
+    public void save_account_money() {
+        this.account_amount = bankPage.get_account_amount();
+    }
+
 
 }

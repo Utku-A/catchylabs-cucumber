@@ -1,9 +1,11 @@
 package pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import utils.DriverFactory;
@@ -50,6 +52,11 @@ public class BasePage extends DriverFactory {
         find(element).sendKeys(input);
     }
 
+    public void select_option(By element, String value) {
+         Select select = new Select(find(element));
+         select.selectByContainsVisibleText(value);
+    }
+
     public void isDisplayed(By element) {
         find(element).isDisplayed();
     }
@@ -70,6 +77,11 @@ public class BasePage extends DriverFactory {
         }catch (Exception e) {
             System.out.println("Second method error");
         }
+    }
+
+    public void alert_popup_close() {
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        alert.accept();
     }
 
 

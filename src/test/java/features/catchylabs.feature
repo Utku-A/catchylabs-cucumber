@@ -35,7 +35,7 @@ Feature: Catchylabs Test
     And Kullanıcı girişi yapılır
     And Test modülü acılır
     When Para yatırma gerçekleştirilir "<amount>"
-    Then Hesap bakiyesi kontrol edilir "<control>"
+    Then Hesap bakiyesi "<amount>" artırğı doğrulanır
     Examples:
       | amount |
       | 100    |
@@ -51,7 +51,14 @@ Feature: Catchylabs Test
 
 
   @smoke
-  Scenario: Para Transferi
+  Scenario Outline: Para Transferi
     Given Catchylabs web adresi açılır
     And Kullanıcı girişi yapılır
     And Test modülü acılır
+    And Mevcut hesap bakiyesi kaydedilir
+    And Para transferi "<receiver account>" hesabı için "<amount>" tutarında yapılır
+    When Son işlemlerde para transferi "<receiver account>" hesabı için "<amount>" tutarında doğrulanır
+    Then Hesap bakiyesi "<amount>" azaldığı doğrulanır
+    Examples:
+      | receiver account | amount |
+      | Testinium-4      | 100    |

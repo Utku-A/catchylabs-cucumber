@@ -29,14 +29,17 @@ public class BankPage extends BasePage {
     By modal_expiry_date_input_locator = By.xpath("//div[contains(text(), \"Expiry date\")]/following-sibling::input");
     By modal_expiry_date_span_locator = By.xpath("//div[contains(text(), \"Expiry date\")]/following-sibling::div");
     By modal_card_cvv_input_locator = By.xpath("//div[contains(text(), \"CVV\") and @dir=\"auto\" ]/following-sibling::input");
-    // By modal_card_cvv_input_locator = By.cssSelector(":nth-child(2) >  :nth-child(1) >  [autocapitalize=\"sentences\"] ");
-
     By modal_card_cvv_span_locator = By.xpath("//div[contains(text(), \"CVV\")]/following-sibling::div");
     By modal_amount_input_locator = By.xpath("//div[contains(text(), \"Amount\")]/following-sibling::input");
     By modal_amount_span_locator = By.xpath("//div[contains(text(), \"Amount\") and @dir=\"auto\"]/following-sibling::div[@dir=\"auto\"]");
     By modal_add_money_close_button_locator = By.xpath("//div[contains(text(), \"Add money\")]/following-sibling::div");
 
     By modal_add_button_locator = By.xpath("//div[@tabindex=\"0\"][1]/div[contains(text(), \"Add\") and @dir=\"auto\"]");
+
+    // Transfer money locator
+    By modal_receiver_account_select_locator = By.xpath("//div[contains(text(), \"Receiver account\")]/following-sibling::div/select");
+    By modal_send_button_locator = By.xpath("//div[contains(text(), \"Send\")]/following-sibling::div/div");
+    By modal_send_amount_input_locator = By.xpath("//div[contains(text(), \"Amount\")]/following-sibling::div/input");
 
     public BankPage(WebDriver driver) {
         super(driver);
@@ -53,9 +56,9 @@ public class BankPage extends BasePage {
     }
 
     public BankPage check_last_transactions(Object sender, Object receiver, Object amount) {
-        Assert.assertEquals(last_transactions_sender_text_locator,sender);
-        Assert.assertEquals(last_transactions_receiver_text_locator, receiver);
-        Assert.assertEquals(last_transactions_amount_text_locator,amount);
+        control_element_text_value(last_transactions_sender_text_locator,sender);
+        control_element_text_value(last_transactions_receiver_text_locator, receiver);
+        control_element_text_value(last_transactions_amount_text_locator,amount);
         return this;
     }
 
@@ -150,9 +153,31 @@ public class BankPage extends BasePage {
         return Integer.parseInt(number_str);
     }
 
+    public String get_account_name() {
+        return find(account_name_text_locator).getText();
+    }
+
     public BankPage check_add_amount(int old_amount, int add_amount) {
         int new_amount = old_amount + add_amount;
         Assert.assertEquals(this.get_account_amount(), new_amount, "Hesap bakiyesi hatalı");
+        return this;
+    }
+
+    public BankPage check_degrease_amount(int old_amount, int degrease_amount) {
+        int new_amount = old_amount - degrease_amount;
+        Assert.assertEquals(this.get_account_amount(), new_amount, "Hesap bakiyesi hatalı");
+        return this;
+    }
+
+    public BankPage transfer_money(String account_name, String receiver_account, String money) {
+        click(transfer_money_button_locator);
+        pause(4);
+        select_option(modal_receiver_account_select_locator,receiver_account);
+        pause(1);
+        alert_popup_close();
+        slow_type(modal_send_amount_input_locator,money);
+        click(modal_send_button_locator);
+        pause(4);
         return this;
     }
 

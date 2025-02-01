@@ -12,8 +12,6 @@ public class Hooks extends DriverFactory {
     public void setup(Scenario scenario) {
         String browser = System.getProperty("browser", "chrome");
         setDriver(browser);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-        driver.manage().window().fullscreen();
     }
 
     @After

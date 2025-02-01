@@ -2,8 +2,10 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.time.Duration;
 
@@ -18,7 +20,12 @@ public class DriverFactory {
     public static void setDriver(String browser) {
         switch(browser.toLowerCase()) {
             case "chrome":
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("test-type");
+                options.addArguments("disable-popup-blocking");
+                options.addArguments("--disable-web-security");
+
+                driver = new ChromeDriver(options);
 
                 break;
             case "firefox":
