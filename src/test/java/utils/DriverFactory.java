@@ -5,6 +5,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.time.Duration;
+
 public class DriverFactory {
 
     public static WebDriver driver;
@@ -17,6 +19,7 @@ public class DriverFactory {
         switch(browser.toLowerCase()) {
             case "chrome":
                 driver = new ChromeDriver();
+
                 break;
             case "firefox":
                 driver = new FirefoxDriver();
@@ -27,6 +30,7 @@ public class DriverFactory {
             default:
                 throw new IllegalArgumentException("Invalid browser: " + browser);
         }
+
     }
 
     public static void quitDriver() {

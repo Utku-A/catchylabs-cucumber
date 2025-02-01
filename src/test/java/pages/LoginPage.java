@@ -6,13 +6,20 @@ import org.openqa.selenium.WebDriver;
 public class LoginPage extends BasePage {
 
     // Locators
-    private final By usernameInput = By.cssSelector("[placeholder=\"Username\"]");
-    private final By passwordInput = By.cssSelector("[placeholder=\"Password\"]");
-    private final By submitButton = By.xpath("//div[contains(text(), 'Login')]");
-    private final By errorMessage = By.xpath("//div[contains(text(), 'Username or Password Invalid!')]");
+    By usernameInput = By.cssSelector("[placeholder=\"Username\"]");
+    By passwordInput = By.cssSelector("[placeholder=\"Password\"]");
+    By submitButton = By.xpath("//div[contains(text(), 'Login')]");
+    By errorMessage = By.xpath("//div[contains(text(), 'Username or Password Invalid!')]");
+    By logout_button_locator = By.xpath("//div[contains(text(), \"Logout\")]");
+
 
     public LoginPage(WebDriver driver) {
         super(driver);
+    }
+
+    public LoginPage goToWebsite(String url) {
+        driver.get(url);
+        return this;
     }
 
     public void login(String username, String password) {
@@ -24,7 +31,7 @@ public class LoginPage extends BasePage {
         click(submitButton);
     }
 
-    public void checkLoginWithInvalidCredentials() {
+    public void incorrect_login_control() {
         click(submitButton);
         isDisplayed(errorMessage);
 
@@ -36,6 +43,10 @@ public class LoginPage extends BasePage {
         type(passwordInput, "test");
         click(submitButton);
         isDisplayed(errorMessage);
+    }
+
+    public void check_login_user() {
+        isDisplayed(logout_button_locator);
     }
 
 }
