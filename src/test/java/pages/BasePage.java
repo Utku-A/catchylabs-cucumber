@@ -41,7 +41,7 @@ public class BasePage extends DriverFactory {
         for (char c : input.toCharArray()) {
             find(element).sendKeys(String.valueOf(c));
             try {
-                Thread.sleep(Duration.ofMillis(100));
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -73,7 +73,7 @@ public class BasePage extends DriverFactory {
 
     public void pause(long second) {
         try {
-            Thread.sleep(Duration.ofSeconds(second));
+            Thread.sleep(second*1000);
         }catch (Exception e) {
             System.out.println("Second method error");
         }

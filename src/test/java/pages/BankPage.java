@@ -159,13 +159,13 @@ public class BankPage extends BasePage {
 
     public BankPage check_add_amount(int old_amount, int add_amount) {
         int new_amount = old_amount + add_amount;
-        Assert.assertEquals(this.get_account_amount(), new_amount, "Hesap bakiyesi hatalı");
+        Assert.assertEquals(this.get_account_amount(), new_amount);
         return this;
     }
 
     public BankPage check_degrease_amount(int old_amount, int degrease_amount) {
         int new_amount = old_amount - degrease_amount;
-        Assert.assertEquals(this.get_account_amount(), new_amount, "Hesap bakiyesi hatalı");
+        Assert.assertEquals(this.get_account_amount(), new_amount);
         return this;
     }
 

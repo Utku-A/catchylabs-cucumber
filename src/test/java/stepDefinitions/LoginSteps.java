@@ -4,11 +4,14 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import utils.DriverFactory;
 
 public class LoginSteps {
-    LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
+
+    WebDriver driver = DriverFactory.getDriver();
+    LoginPage loginPage = new LoginPage(driver);
 
     @Given("Catchylabs web adresi açılır")
     public void visit_website() {
@@ -23,7 +26,7 @@ public class LoginSteps {
 
     @When("Kullanıcı girişi yapılır")
     public void login_user() {
-        loginPage.login("halisutku.aladag", "7RiMx3mD");
+        loginPage.login("halisutku.aladag", "test123321");
     }
 
     @Then("Başarılı giriş yapıldığı doğrulanır.")

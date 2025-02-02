@@ -1,4 +1,5 @@
-Feature: Catchylabs Test
+@web
+Feature: Catchylabs Web Test
 
 @smoke
   Scenario: Login

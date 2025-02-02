@@ -1,19 +1,15 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.*;
-import org.testng.Assert;
+import org.openqa.selenium.WebDriver;
 import pages.BankPage;
-import pages.BasePage;
 import utils.DriverFactory;
 
 public class BankSteps {
-
-    private final BankPage bankPage;
+    WebDriver driver = DriverFactory.getDriver();
+    BankPage bankPage = new BankPage(driver);
     int account_amount;
 
-    public BankSteps() {
-        this.bankPage = new BankPage(DriverFactory.getDriver());
-    }
 
     @And("Test modülü acılır")
     public void open_test_module() {
