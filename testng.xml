@@ -4,6 +4,7 @@
         <classes>
             <class name="runners.ApiRunner"/>
             <class name="runners.WebRunner"/>
+            <class name="runners.MobileRunner"></class>
         </classes>
     </test>
 </suite>
